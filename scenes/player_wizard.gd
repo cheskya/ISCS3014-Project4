@@ -16,7 +16,7 @@ var actions = {
 	},
 	"Skill": {
 		"Lightning": {
-			"Damage": 8,
+			"Damage": 20, # 8 originally
 			"Target": 1,
 			"Uses": 3,
 		},

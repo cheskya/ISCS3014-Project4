@@ -48,15 +48,26 @@ func player_phase() -> void:
 		var player_target = move[2]
 		if player_target != null:
 			ui.change_action_log(player_name + " did " + player_action + " to " + player_target)
+			await get_tree().create_timer(1.0).timeout
 			# calculate damage here
 			var action_info = find_child(player_name).get_action_info(player_action)
 			if "Uses" in action_info and action_info["Uses"] < 0:
 				pass
 			if action_info["Target"] == 1:
-				find_child(player_target).deplete_health(action_info["Damage"])
+				if find_child(player_target) != null:
+					find_child(player_target).deplete_health(action_info["Damage"])
+					if find_child(player_target).health <= 0:
+							print("hello")
+							find_child(player_target).queue_free()
+				else:
+					ui.change_action_log("No effect as " + player_target + " is dead!")
 			else:
 				for enemy in get_tree().get_nodes_in_group("enemy"):
-					enemy.deplete_health(action_info["Damage"])
+					if enemy != null:
+						enemy.deplete_health(action_info["Damage"])
+						if enemy.health <= 0:
+							print("hello")
+							enemy.queue_free()
 			if action_info.has("Uses"):
 				action_info["Uses"] -= 1
 				
@@ -86,15 +97,25 @@ func enemy_phase() -> void:
 		var enemy_target = move[2]
 		if enemy_target != null:
 			ui.change_action_log(enemy_name + " did " + enemy_action + " to " + enemy_target)
+			await get_tree().create_timer(1.0).timeout
 			# calculate damage here
 			var action_info = find_child(enemy_name).get_action_info(enemy_action)
 			if "Uses" in action_info and action_info["Uses"] < 0:
 				pass
 			if action_info["Target"] == 1:
-				find_child(enemy_target).deplete_health(action_info["Damage"])
+				if find_child(enemy_target) != null:
+					find_child(enemy_target).deplete_health(action_info["Damage"])
+					if find_child(enemy_target).health <= 0:
+							print("hello")
+							find_child(enemy_target).queue_free()
+				else:
+					ui.change_action_log("No effect as " + enemy_target + " is dead!")
 			else:
 				for player in get_tree().get_nodes_in_group("player"):
-					player.deplete_health(action_info["Damage"])
+					if player != null:
+						player.deplete_health(action_info["Damage"])
+						if player.health <= 0:
+							player.queue_free()
 			if action_info.has("Uses"):
 				action_info["Uses"] -= 1
 				
