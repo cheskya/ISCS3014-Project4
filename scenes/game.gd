@@ -4,6 +4,7 @@ var player_turn : bool = true
 var accept_move : bool = false
 var current_player : CharacterBody2D
 var player_moves : Array = []
+var enemy_moves : Array = []
 @onready var ui = $UI
 
 var is_menu_disabled : bool = false
@@ -54,12 +55,22 @@ func player_phase() -> void:
 func enemy_phase() -> void:
 	ui.change_action_log("Enemy Phase")
 	accept_move = false
+	
+	enemy_moves = []
+	
 	await get_tree().create_timer(2.0).timeout
 	for node in get_tree().get_nodes_in_group("enemy"):
 		ui.change_action_log(node.name + "'s Turn")
 		await get_tree().create_timer(1.0).timeout
 		node.action()
 		await node.move_done
+	
+	for move in enemy_moves:
+		if move[2] != null:
+			ui.change_action_log(move[0] + " did " + move[1] + " to " + move[2])
+		else:
+			ui.change_action_log(move[0] + " did " + move[1])
+		await get_tree().create_timer(2.0).timeout
 	
 	player_turn = true
 	handle_turns(player_turn)
