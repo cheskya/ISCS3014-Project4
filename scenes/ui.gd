@@ -54,8 +54,8 @@ func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button
 	else: # select any attack
 		hide_menu(attack_list)
 		current_action = attack_list.get_item_text(index)
-		enemy_list.set_item_text(0, "Back to Attacks")
 		is_from_attack = true
+		self.change_enemies_list(get_tree().get_nodes_in_group("enemy"), is_from_attack)
 		show_menu(enemy_list)
 
 
@@ -67,8 +67,8 @@ func _on_skills_list_item_clicked(index: int, at_position: Vector2, mouse_button
 	else: # select any skill
 		hide_menu(skills_list)
 		current_action = skills_list.get_item_text(index)
-		enemy_list.set_item_text(0, "Back to Skills")
 		is_from_attack = false
+		self.change_enemies_list(get_tree().get_nodes_in_group("enemy"), is_from_attack)
 		show_menu(enemy_list)
 
 
@@ -108,6 +108,17 @@ func change_skills_list(list: Dictionary):
 	skills_list.add_item("Back to Actions")
 	for skill in list:
 		skills_list.add_item(skill)
+
+
+func change_enemies_list(list: Array, is_attack: bool):
+	enemy_list.clear()
+	if is_attack:
+		enemy_list.add_item("Back to Attacks")
+	else:
+		enemy_list.add_item("Back to Skills")
+
+	for enemy in list:
+		enemy_list.add_item(enemy.name)
 
 
 func hide_menu(menu: Node):

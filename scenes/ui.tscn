@@ -58,7 +58,7 @@ item_count = 1
 item_0/text = "Back to"
 
 [node name="ActionLog" type="PanelContainer" parent="."]
-anchors_preset = -1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -78.5

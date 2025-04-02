@@ -57,7 +57,6 @@ func player_phase() -> void:
 				if find_child(player_target) != null:
 					find_child(player_target).deplete_health(action_info["Damage"])
 					if find_child(player_target).health <= 0:
-							print("hello")
 							find_child(player_target).queue_free()
 				else:
 					ui.change_action_log("No effect as " + player_target + " is dead!")
@@ -66,7 +65,6 @@ func player_phase() -> void:
 					if enemy != null:
 						enemy.deplete_health(action_info["Damage"])
 						if enemy.health <= 0:
-							print("hello")
 							enemy.queue_free()
 			if action_info.has("Uses"):
 				action_info["Uses"] -= 1
@@ -106,7 +104,6 @@ func enemy_phase() -> void:
 				if find_child(enemy_target) != null:
 					find_child(enemy_target).deplete_health(action_info["Damage"])
 					if find_child(enemy_target).health <= 0:
-							print("hello")
 							find_child(enemy_target).queue_free()
 				else:
 					ui.change_action_log("No effect as " + enemy_target + " is dead!")
