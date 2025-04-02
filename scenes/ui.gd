@@ -66,7 +66,7 @@ func _on_skills_list_item_clicked(index: int, at_position: Vector2, mouse_button
 		return
 	else: # select any skill
 		hide_menu(skills_list)
-		current_action = attack_list.get_item_text(index)
+		current_action = skills_list.get_item_text(index)
 		enemy_list.set_item_text(0, "Back to Skills")
 		is_from_attack = false
 		show_menu(enemy_list)
