@@ -1,11 +1,16 @@
-[gd_scene load_steps=9 format=4 uid="uid://eksvujuoxr2b"]
+[gd_scene load_steps=14 format=4 uid="uid://eksvujuoxr2b"]
 
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_e3t6j"]
 [ext_resource type="PackedScene" uid="uid://cromsswn78xtq" path="res://scenes/player_knight.tscn" id="1_eom5m"]
 [ext_resource type="Texture2D" uid="uid://beb2k02byaaa" path="res://assets/Catacombs/mainlevbuild.png" id="1_ggia7"]
-[ext_resource type="PackedScene" path="res://scenes/player_wizard.tscn" id="2_ee1pt"]
+[ext_resource type="PackedScene" uid="uid://46rsn01v0yrh" path="res://scenes/player_wizard.tscn" id="2_ee1pt"]
 [ext_resource type="PackedScene" uid="uid://cykijir31vleq" path="res://scenes/enemy_goblin.tscn" id="3_qhill"]
+[ext_resource type="Script" path="res://scenes/player_knight.gd" id="3_s5hrm"]
 [ext_resource type="PackedScene" uid="uid://b08mdlt6wkq1c" path="res://scenes/enemy_mushroom.tscn" id="4_1kpr5"]
+[ext_resource type="Script" path="res://scenes/player_wizard.gd" id="4_2akds"]
 [ext_resource type="PackedScene" uid="uid://bbvlira0ldvkd" path="res://scenes/ui.tscn" id="6_osccv"]
+[ext_resource type="Script" path="res://scenes/enemy_goblin.gd" id="7_7s6vq"]
+[ext_resource type="Script" path="res://scenes/enemy_mushroom.gd" id="9_arv7v"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j0g3e"]
 texture = ExtResource("1_ggia7")
@@ -1038,6 +1043,7 @@ texture = ExtResource("1_ggia7")
 sources/0 = SubResource("TileSetAtlasSource_j0g3e")
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_e3t6j")
 
 [node name="Background" type="TileMapLayer" parent="."]
 use_parent_material = true
@@ -1049,20 +1055,24 @@ tile_set = SubResource("TileSet_2brxl")
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2(576, 324)
 
-[node name="Knight" parent="." instance=ExtResource("1_eom5m")]
-position = Vector2(324, 433)
-scale = Vector2(4, 4)
-
 [node name="Wizard" parent="." instance=ExtResource("2_ee1pt")]
 position = Vector2(158, 273)
 scale = Vector2(4, 4)
+script = ExtResource("4_2akds")
 
-[node name="Goblin" parent="." instance=ExtResource("3_qhill")]
-position = Vector2(849, 430)
+[node name="Knight" parent="." instance=ExtResource("1_eom5m")]
+position = Vector2(324, 433)
 scale = Vector2(4, 4)
+script = ExtResource("3_s5hrm")
 
 [node name="Mushroom" parent="." instance=ExtResource("4_1kpr5")]
 position = Vector2(1009, 264)
 scale = Vector2(4, 4)
+script = ExtResource("9_arv7v")
+
+[node name="Goblin" parent="." instance=ExtResource("3_qhill")]
+position = Vector2(849, 430)
+scale = Vector2(4, 4)
+script = ExtResource("7_7s6vq")
 
 [node name="UI" parent="." instance=ExtResource("6_osccv")]
