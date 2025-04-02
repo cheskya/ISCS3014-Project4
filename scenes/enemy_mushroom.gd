@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
 @onready var ui_node = $"../UI"
+@onready var health_label = $HealthLabel
+
+var health = 10
 
 signal move_done(data)
 
 func _ready():
 	add_to_group("enemy")
+	health_label.text = str(health)
 
 func action():
 	var move_name : String

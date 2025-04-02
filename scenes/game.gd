@@ -33,17 +33,19 @@ func player_phase() -> void:
 	for node in get_tree().get_nodes_in_group("player"):
 		current_player = node
 		accept_move = true
+		ui.enable_menu()
 		ui.change_attack_list(node.get_attacks())
 		ui.change_skills_list(node.get_skills())
 		ui.change_action_log(node.name + "'s Turn")
-		ui.enable_menu()
 		node.action()
 		await node.move_done
-		ui.disable_menu()
 	
 
 	for move in player_moves:
-		ui.change_action_log(move[0] + " did " + move[1])
+		if move[2] != null:
+			ui.change_action_log(move[0] + " did " + move[1] + " to " + move[2])
+		else:
+			ui.change_action_log(move[0] + " did " + move[1])
 		await get_tree().create_timer(2.0).timeout
 	
 	player_turn = false

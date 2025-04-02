@@ -8,7 +8,7 @@ extends CanvasLayer
 @onready var action_log_text = $ActionLog/MarginContainer/CenterContainer/Label
 @onready var game = $".."
 
-signal move_received(name, data)
+signal move_received(name, data, target)
 
 var is_from_attack : bool = false
 var current_action : String
@@ -40,7 +40,7 @@ func _on_action_list_item_clicked(index: int, at_position: Vector2, mouse_button
 		show_menu(skills_list)
 	elif (index == 2) and game.accept_move:
 		action_list.deselect_all()
-		emit_signal("move_received", action_list.get_item_text(index), game.current_player)
+		emit_signal("move_received", action_list.get_item_text(index), game.current_player, null)
 
 
 func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
@@ -80,10 +80,11 @@ func _on_enemy_list_item_clicked(index: int, at_position: Vector2, mouse_button_
 		return
 	else:
 		hide_menu(enemy_list)
+		current_target = enemy_list.get_item_text(index)
 		show_menu(action_list)
 	
 	if game.accept_move:
-		emit_signal("move_received", current_action, game.current_player)
+		emit_signal("move_received", current_action, game.current_player, current_target)
 
 
 func change_action_log(text: String):
