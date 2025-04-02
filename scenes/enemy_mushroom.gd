@@ -8,6 +8,8 @@ var health = 20
 
 signal move_done(data)
 
+var is_defending : bool = false
+
 var actions = {
 	"Attack": {
 		"Slash": {
@@ -42,6 +44,7 @@ func action():
 		var second_move : int = randi_range(1, ui_node.attack_list.item_count-1)
 		move_name = ui_node.attack_list.get_item_text(second_move)
 	else: # defend
+		is_defending = true
 		move_name = ui_node.action_list.get_item_text(first_move)
 		game.enemy_moves.append([self.name, move_name, null])
 		await get_tree().create_timer(1.0).timeout

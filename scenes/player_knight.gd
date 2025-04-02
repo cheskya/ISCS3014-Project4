@@ -7,6 +7,8 @@ extends CharacterBody2D
 signal move_done
 signal move_wait
 
+var is_defending : bool = false
+
 var actions = {
 	"Attack": {
 		"Slash": {
@@ -42,6 +44,8 @@ func player_move(name, data, target):
 		game.accept_move = false
 		ui_node.disable_menu()
 		game.player_moves.append([self.name, name, target])
+		if name == "Defend":
+			is_defending = true
 		emit_signal("move_wait")
 
 
