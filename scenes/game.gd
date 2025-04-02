@@ -34,6 +34,7 @@ func enemy_phase() -> void:
 	await get_tree().create_timer(2.0).timeout
 	for node in get_tree().get_nodes_in_group("enemy"):
 		ui.change_action_log(node.name + "'s Turn")
+		await get_tree().create_timer(1.0).timeout
 		node.action()
 		await node.move_done
 	

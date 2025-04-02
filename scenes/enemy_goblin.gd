@@ -12,7 +12,6 @@ func action():
 	
 	var first_move : int = randi_range(0, 2)
 	if first_move == 2: # defend
-		await get_tree().create_timer(2.0).timeout
 		move_name = ui_node.action_list.get_item_text(first_move)
 		ui_node.change_action_log(self.name + " did " + move_name)
 		await get_tree().create_timer(2.0).timeout
