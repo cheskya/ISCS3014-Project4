@@ -10,7 +10,7 @@ signal move_wait
 var actions = {
 	"Attack": {
 		"Slash": {
-			"Damage": 3,
+			"Damage": 20, # 3 Originally
 			"Target": 1,
 		},
 		"Spin Attack": {
@@ -68,7 +68,6 @@ func get_skill_info(skill: String):
 
 
 func get_action_info(action: String):
-	print(action)
 	var action_info
 	if action in actions["Attack"]:
 		action_info = get_attack_info(action)

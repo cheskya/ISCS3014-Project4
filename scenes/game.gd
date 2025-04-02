@@ -40,7 +40,6 @@ func player_phase() -> void:
 		ui.change_action_log(node.name + "'s Turn")
 		node.action()
 		await node.move_done
-	
 
 	for move in player_moves:
 		var player_name = move[0]
@@ -57,7 +56,7 @@ func player_phase() -> void:
 				if find_child(player_target) != null:
 					find_child(player_target).deplete_health(action_info["Damage"])
 					if find_child(player_target).health <= 0:
-							find_child(player_target).queue_free()
+						find_child(player_target).queue_free()
 			else:
 				for enemy in get_tree().get_nodes_in_group("enemy"):
 					if enemy != null:
@@ -72,6 +71,7 @@ func player_phase() -> void:
 		await get_tree().create_timer(2.0).timeout
 	
 	if get_tree().get_node_count_in_group("enemy") == 0:
+		await get_tree().create_timer(1.0).timeout
 		end_screen(true)
 		return
 	
@@ -106,7 +106,7 @@ func enemy_phase() -> void:
 				if find_child(enemy_target) != null:
 					find_child(enemy_target).deplete_health(action_info["Damage"])
 					if find_child(enemy_target).health <= 0:
-							find_child(enemy_target).queue_free()
+						find_child(enemy_target).queue_free()
 			else:
 				for player in get_tree().get_nodes_in_group("player"):
 					if player != null:
@@ -121,6 +121,7 @@ func enemy_phase() -> void:
 		await get_tree().create_timer(2.0).timeout
 	
 	if get_tree().get_node_count_in_group("player") == 0:
+		await get_tree().create_timer(1.0).timeout
 		end_screen(false)
 		return
 	
