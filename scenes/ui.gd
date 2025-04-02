@@ -14,6 +14,7 @@ var is_from_attack : bool = false
 var current_action : String
 var current_target : String
 var current_list : Node
+var enemy_snapshot : Array
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -22,8 +23,10 @@ func _ready() -> void:
 	hide_menu(enemy_list)
 	action_log.hide()
 	show_menu(action_list)
+	enemy_snapshot.append(null)
 	for node in get_tree().get_nodes_in_group("enemy"):
 		enemy_list.add_item(node.name)
+		enemy_snapshot.append(node)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,14 +96,14 @@ func change_action_log(text: String):
 	pass
 
 
-func change_attack_list(list: Array):
+func change_attack_list(list: Dictionary):
 	attack_list.clear()
 	attack_list.add_item("Back to Actions")
 	for attack in list:
 		attack_list.add_item(attack)
 	
 
-func change_skills_list(list: Array):
+func change_skills_list(list: Dictionary):
 	skills_list.clear()
 	skills_list.add_item("Back to Actions")
 	for skill in list:

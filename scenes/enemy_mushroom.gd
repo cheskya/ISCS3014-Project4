@@ -4,7 +4,7 @@ extends CharacterBody2D
 @onready var health_label = $HealthLabel
 @onready var game = $".."
 
-var health = 10
+var health = 20
 
 signal move_done(data)
 
@@ -32,3 +32,8 @@ func action():
 	
 	await get_tree().create_timer(1.0).timeout
 	emit_signal("move_done", move_name)
+
+
+func deplete_health(amt: int):
+	health -= amt
+	health_label.text = str(health)

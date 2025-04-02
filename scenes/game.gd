@@ -43,8 +43,23 @@ func player_phase() -> void:
 	
 
 	for move in player_moves:
-		if move[2] != null:
-			ui.change_action_log(move[0] + " did " + move[1] + " to " + move[2])
+		var player_name = move[0]
+		var player_action = move[1]
+		var player_target = move[2]
+		if player_target != null:
+			ui.change_action_log(player_name + " did " + player_action + " to " + player_target)
+			# calculate damage here
+			var action_info = find_child(player_name).get_action_info(player_action)
+			if "Uses" in action_info and action_info["Uses"] < 0:
+				pass
+			if action_info["Target"] == 1:
+				find_child(player_target).deplete_health(action_info["Damage"])
+			else:
+				for enemy in get_tree().get_nodes_in_group("enemy"):
+					enemy.deplete_health(action_info["Damage"])
+			if action_info.has("Uses"):
+				action_info["Uses"] -= 1
+				
 		else:
 			ui.change_action_log(move[0] + " did " + move[1])
 		await get_tree().create_timer(2.0).timeout
