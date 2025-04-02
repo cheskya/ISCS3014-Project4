@@ -13,14 +13,15 @@ signal move_received(name, data)
 var is_from_attack : bool = false
 var current_action : String
 var current_target : String
+var current_list : Node
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	skills_list.hide()
-	attack_list.hide()
-	enemy_list.hide()
+	hide_menu(skills_list)
+	hide_menu(attack_list)
+	hide_menu(enemy_list)
 	action_log.hide()
-	action_list.show()
+	show_menu(action_list)
 	for node in get_tree().get_nodes_in_group("enemy"):
 		enemy_list.add_item(node.name)
 
@@ -32,13 +33,11 @@ func _process(delta: float) -> void:
 
 func _on_action_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	if (index == 0): # select attack menu
-		action_list.hide()
-		action_list.deselect_all()
-		attack_list.show()
+		hide_menu(action_list)
+		show_menu(attack_list)
 	elif (index == 1): # select skills menu
-		action_list.hide()
-		action_list.deselect_all()
-		skills_list.show()
+		hide_menu(action_list)
+		show_menu(skills_list)
 	elif (index == 2) and game.accept_move:
 		action_list.deselect_all()
 		emit_signal("move_received", action_list.get_item_text(index), game.current_player)
@@ -46,49 +45,42 @@ func _on_action_list_item_clicked(index: int, at_position: Vector2, mouse_button
 
 func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	if (index == 0): # select go back to actions menu
-		attack_list.hide()
-		attack_list.deselect_all()
-		action_list.show()
+		hide_menu(attack_list)
+		show_menu(action_list)
 		return
 	else: # select any attack
-		attack_list.hide()
-		attack_list.deselect_all()
+		hide_menu(attack_list)
 		current_action = attack_list.get_item_text(index)
 		enemy_list.set_item_text(0, "Back to Attacks")
 		is_from_attack = true
-		enemy_list.show()
+		show_menu(enemy_list)
 
 
 func _on_skills_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	if (index == 0): # select go back to actions menu
-		skills_list.hide()
-		skills_list.deselect_all()
-		action_list.show()
+		hide_menu(skills_list)
+		show_menu(action_list)
 		return
 	else: # select any skill
-		skills_list.hide()
-		skills_list.deselect_all()
+		hide_menu(skills_list)
 		current_action = attack_list.get_item_text(index)
 		enemy_list.set_item_text(0, "Back to Skills")
 		is_from_attack = false
-		enemy_list.show()
+		show_menu(enemy_list)
 
 
 func _on_enemy_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:
 	if (index == 0 && is_from_attack): # select go back to attack menu
-		enemy_list.hide()
-		enemy_list.deselect_all()
-		attack_list.show()
+		hide_menu(enemy_list)
+		show_menu(attack_list)
 		return
 	elif (index == 0 && not is_from_attack): # select go back to skills menu
-		enemy_list.hide()
-		enemy_list.deselect_all()
-		skills_list.show()
+		hide_menu(enemy_list)
+		show_menu(skills_list)
 		return
 	else:
-		enemy_list.hide()
-		enemy_list.deselect_all()
-		action_list.show()
+		hide_menu(enemy_list)
+		show_menu(action_list)
 	
 	if game.accept_move:
 		emit_signal("move_received", current_action, game.current_player)
@@ -98,3 +90,41 @@ func change_action_log(text: String):
 	action_log_text.set_text(text)
 	action_log.show()
 	pass
+
+
+func change_attack_list(list: Array):
+	attack_list.clear()
+	attack_list.add_item("Back to Actions")
+	for attack in list:
+		attack_list.add_item(attack)
+	
+
+func change_skills_list(list: Array):
+	skills_list.clear()
+	skills_list.add_item("Back to Actions")
+	for skill in list:
+		skills_list.add_item(skill)
+
+
+func hide_menu(menu: Node):
+	menu.hide()
+	menu.deselect_all()
+
+
+func show_menu(menu: Node):
+	menu.show()
+	current_list = menu
+
+
+func disable_menu():
+	var i = 0
+	while i < current_list.item_count:
+		current_list.set_item_disabled(i, true)
+		i += 1
+
+
+func enable_menu():
+	var i = 0
+	while i < current_list.item_count:
+		current_list.set_item_disabled(i, false)
+		i += 1

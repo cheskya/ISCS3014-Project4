@@ -37,20 +37,21 @@ item_2/text = "Defend"
 visible = false
 layout_mode = 2
 allow_search = false
-item_count = 2
+item_count = 3
 item_0/text = "Back to Actions"
-item_1/text = "Wind Slash"
+item_1/text = "Lightning"
+item_2/text = "Acid"
 
 [node name="AttackList" type="ItemList" parent="ActionMenu/MarginContainer"]
 visible = false
 layout_mode = 2
 allow_search = false
-item_count = 3
+item_count = 2
 item_0/text = "Back to Actions"
-item_1/text = "Slash"
-item_2/text = "Spin Attack"
+item_1/text = "Bonk"
 
 [node name="EnemyList" type="ItemList" parent="ActionMenu/MarginContainer"]
+visible = false
 layout_mode = 2
 allow_search = false
 item_count = 1
