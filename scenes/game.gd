@@ -58,8 +58,6 @@ func player_phase() -> void:
 					find_child(player_target).deplete_health(action_info["Damage"])
 					if find_child(player_target).health <= 0:
 							find_child(player_target).queue_free()
-				else:
-					ui.change_action_log("No effect as " + player_target + " is dead!")
 			else:
 				for enemy in get_tree().get_nodes_in_group("enemy"):
 					if enemy != null:
@@ -72,6 +70,10 @@ func player_phase() -> void:
 		else:
 			ui.change_action_log(move[0] + " did " + move[1])
 		await get_tree().create_timer(2.0).timeout
+	
+	if get_tree().get_node_count_in_group("enemy") == 0:
+		end_screen(true)
+		return
 	
 	player_turn = false
 	handle_turns(player_turn)
@@ -105,8 +107,6 @@ func enemy_phase() -> void:
 					find_child(enemy_target).deplete_health(action_info["Damage"])
 					if find_child(enemy_target).health <= 0:
 							find_child(enemy_target).queue_free()
-				else:
-					ui.change_action_log("No effect as " + enemy_target + " is dead!")
 			else:
 				for player in get_tree().get_nodes_in_group("player"):
 					if player != null:
@@ -120,5 +120,16 @@ func enemy_phase() -> void:
 			ui.change_action_log(move[0] + " did " + move[1])
 		await get_tree().create_timer(2.0).timeout
 	
+	if get_tree().get_node_count_in_group("player") == 0:
+		end_screen(false)
+		return
+	
 	player_turn = true
 	handle_turns(player_turn)
+
+func end_screen(is_player_win: bool) -> void:
+	if is_player_win:
+		ui.change_action_log("Game Over, You Win!")
+	else:
+		ui.change_action_log("Game Over, You Lose.")
+	get_tree().paused = true
