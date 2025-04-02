@@ -102,8 +102,20 @@ func enemy_phase() -> void:
 	for node in get_tree().get_nodes_in_group("enemy"):
 		ui.change_action_log(node.name + "'s Turn")
 		await get_tree().create_timer(1.0).timeout
-		node.action()
-		await node.move_done
+		
+		if node.has_acid:
+			for player in get_tree().get_nodes_in_group("player"):
+				if player.name == "Wizard":
+					node.deplete_health(player.actions["Skill"]["Acid"]["Damage"])
+					if node.health <= 0:
+						ui.change_action_log(node.name + " died!")
+						node.queue_free()
+					await get_tree().create_timer(1.0).timeout
+					break
+		
+		if node != null:
+			node.action()
+			await node.move_done
 	
 	for move in enemy_moves:
 		var enemy_name = move[0]
