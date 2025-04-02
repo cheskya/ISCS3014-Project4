@@ -110,10 +110,12 @@ func enemy_phase() -> void:
 			for player in get_tree().get_nodes_in_group("player"):
 				if player.name == "Wizard":
 					node.deplete_health(player.actions["Skill"]["Acid"]["Damage"])
+					ui.change_action_log(node.name + " got hit by Acid!")
+					await get_tree().create_timer(1.0).timeout
 					if node.health <= 0:
 						ui.change_action_log(node.name + " died!")
 						node.queue_free()
-					await get_tree().create_timer(1.0).timeout
+						await get_tree().create_timer(1.0).timeout
 					break
 		
 		if node != null:
