@@ -103,7 +103,10 @@ func enemy_phase() -> void:
 		ui.change_action_log(node.name + "'s Turn")
 		await get_tree().create_timer(1.0).timeout
 		
-		if node.has_acid:
+		if node.has_acid < 2 and node.has_acid != -1:
+			node.has_acid += 1
+			if node.has_acid == 2:
+				node.has_acid = -1
 			for player in get_tree().get_nodes_in_group("player"):
 				if player.name == "Wizard":
 					node.deplete_health(player.actions["Skill"]["Acid"]["Damage"])

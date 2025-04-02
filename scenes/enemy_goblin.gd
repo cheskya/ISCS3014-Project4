@@ -9,7 +9,7 @@ var health = 20
 signal move_done(data)
 
 var is_defending : bool = false
-var has_acid : bool = false
+var has_acid : int = -1
 
 var actions = {
 	"Attack": {

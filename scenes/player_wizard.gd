@@ -23,7 +23,7 @@ var actions = {
 			"Uses": 3,
 		},
 		"Acid": {
-			"Damage": 15, # 2 originally
+			"Damage": 7, # 2 originally
 			"Target": 1,
 			"Uses": 3,
 		},
@@ -50,7 +50,7 @@ func player_move(name, data, target):
 		if name == "Acid":
 			for enemy in get_tree().get_nodes_in_group("enemy"):
 				if enemy != null and enemy.name == target:
-					enemy.has_acid = true
+					enemy.has_acid = 0
 		emit_signal("move_wait")
 
 
