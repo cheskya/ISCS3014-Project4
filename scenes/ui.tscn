@@ -50,8 +50,14 @@ item_0/text = "Back to Actions"
 item_1/text = "Slash"
 item_2/text = "Spin Attack"
 
+[node name="EnemyList" type="ItemList" parent="ActionMenu/MarginContainer"]
+layout_mode = 2
+allow_search = false
+item_count = 1
+item_0/text = "Back to"
+
 [node name="ActionLog" type="PanelContainer" parent="."]
-anchors_preset = -1
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -192.0
@@ -77,3 +83,4 @@ text = "test"
 [connection signal="item_clicked" from="ActionMenu/MarginContainer/ActionList" to="." method="_on_action_list_item_clicked"]
 [connection signal="item_clicked" from="ActionMenu/MarginContainer/SkillsList" to="." method="_on_skills_list_item_clicked"]
 [connection signal="item_clicked" from="ActionMenu/MarginContainer/AttackList" to="." method="_on_attack_list_item_clicked"]
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/EnemyList" to="." method="_on_enemy_list_item_clicked"]
