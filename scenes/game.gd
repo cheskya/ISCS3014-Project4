@@ -3,6 +3,7 @@ extends Node2D
 var player_turn : bool = true
 var accept_move : bool = false
 var current_player : CharacterBody2D
+@onready var ui = $UI
 
 func _ready():
 	handle_turns(player_turn)
@@ -15,12 +16,12 @@ func handle_turns(is_player_turn : bool) -> void:
 	enemy_phase()
 
 func player_phase() -> void:	
-	print("Player Phase")
+	ui.change_action_log("Player Phase")
 	await get_tree().create_timer(2.0).timeout
 	for node in get_tree().get_nodes_in_group("player"):
 		current_player = node
 		accept_move = true
-		print(node.name)
+		ui.change_action_log(node.name + "'s Turn")
 		node.action()
 		await node.move_done
 	
@@ -28,11 +29,11 @@ func player_phase() -> void:
 	handle_turns(player_turn)
 	
 func enemy_phase() -> void:
-	print("Enemy Phase")
+	ui.change_action_log("Enemy Phase")
 	accept_move = false
 	await get_tree().create_timer(2.0).timeout
 	for node in get_tree().get_nodes_in_group("enemy"):
-		print(node.name)
+		ui.change_action_log(node.name + "'s Turn")
 		node.action()
 		await node.move_done
 	

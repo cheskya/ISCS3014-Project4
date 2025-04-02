@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_e3t6j"]
 [ext_resource type="PackedScene" uid="uid://cromsswn78xtq" path="res://scenes/player_knight.tscn" id="1_eom5m"]
 [ext_resource type="Texture2D" uid="uid://beb2k02byaaa" path="res://assets/Catacombs/mainlevbuild.png" id="1_ggia7"]
-[ext_resource type="PackedScene" uid="uid://46rsn01v0yrh" path="res://scenes/player_wizard.tscn" id="2_ee1pt"]
+[ext_resource type="PackedScene" path="res://scenes/player_wizard.tscn" id="2_ee1pt"]
 [ext_resource type="PackedScene" uid="uid://cykijir31vleq" path="res://scenes/enemy_goblin.tscn" id="3_qhill"]
 [ext_resource type="Script" path="res://scenes/player_knight.gd" id="3_s5hrm"]
 [ext_resource type="PackedScene" uid="uid://b08mdlt6wkq1c" path="res://scenes/enemy_mushroom.tscn" id="4_1kpr5"]

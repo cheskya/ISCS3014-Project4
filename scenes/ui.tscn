@@ -5,7 +5,7 @@
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_o0fgn")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="ActionMenu" type="PanelContainer" parent="."]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
@@ -18,14 +18,14 @@ offset_bottom = -40.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="ActionMenu"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ActionList" type="ItemList" parent="PanelContainer/MarginContainer"]
+[node name="ActionList" type="ItemList" parent="ActionMenu/MarginContainer"]
 layout_mode = 2
 allow_search = false
 item_count = 3
@@ -33,7 +33,7 @@ item_0/text = "Attack"
 item_1/text = "Skill"
 item_2/text = "Defend"
 
-[node name="SkillsList" type="ItemList" parent="PanelContainer/MarginContainer"]
+[node name="SkillsList" type="ItemList" parent="ActionMenu/MarginContainer"]
 visible = false
 layout_mode = 2
 allow_search = false
@@ -41,7 +41,7 @@ item_count = 2
 item_0/text = "Back to Actions"
 item_1/text = "Wind Slash"
 
-[node name="AttackList" type="ItemList" parent="PanelContainer/MarginContainer"]
+[node name="AttackList" type="ItemList" parent="ActionMenu/MarginContainer"]
 visible = false
 layout_mode = 2
 allow_search = false
@@ -50,6 +50,30 @@ item_0/text = "Back to Actions"
 item_1/text = "Slash"
 item_2/text = "Spin Attack"
 
-[connection signal="item_clicked" from="PanelContainer/MarginContainer/ActionList" to="." method="_on_action_list_item_clicked"]
-[connection signal="item_clicked" from="PanelContainer/MarginContainer/SkillsList" to="." method="_on_skills_list_item_clicked"]
-[connection signal="item_clicked" from="PanelContainer/MarginContainer/AttackList" to="." method="_on_attack_list_item_clicked"]
+[node name="ActionLog" type="PanelContainer" parent="."]
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -192.0
+offset_top = 33.0
+offset_right = -35.0
+offset_bottom = 107.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionLog"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="ActionLog/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ActionLog/MarginContainer/CenterContainer"]
+layout_mode = 2
+text = "test"
+
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/ActionList" to="." method="_on_action_list_item_clicked"]
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/SkillsList" to="." method="_on_skills_list_item_clicked"]
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/AttackList" to="." method="_on_attack_list_item_clicked"]

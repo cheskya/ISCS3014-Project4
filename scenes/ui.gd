@@ -1,15 +1,21 @@
 extends CanvasLayer
 
-@onready var action_list = $PanelContainer/MarginContainer/ActionList
-@onready var attack_list = $PanelContainer/MarginContainer/AttackList
-@onready var skills_list = $PanelContainer/MarginContainer/SkillsList
+@onready var action_list = $ActionMenu/MarginContainer/ActionList
+@onready var attack_list = $ActionMenu/MarginContainer/AttackList
+@onready var skills_list = $ActionMenu/MarginContainer/SkillsList
+@onready var action_log = $ActionLog
+@onready var action_log_text = $ActionLog/MarginContainer/CenterContainer/Label
 @onready var game = $".."
 
 signal move_received(name, data)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	skills_list.hide()
+	attack_list.hide()
+	action_log.hide()
+	action_list.show()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -52,3 +58,9 @@ func _on_skills_list_item_clicked(index: int, at_position: Vector2, mouse_button
 	
 	if game.accept_move:
 		emit_signal("move_received", skills_list.get_item_text(index), game.current_player)
+
+
+func change_action_log(text: String):
+	action_log_text.set_text(text)
+	action_log.show()
+	pass
