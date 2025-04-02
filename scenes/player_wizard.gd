@@ -14,10 +14,11 @@ func _ready():
 func player_move(name, data):
 	if self == data:
 		game.accept_move = false
-		ui_node.change_action_log(self.name + " did " + name)
+		game.player_moves.append([self.name, name])
+		#ui_node.change_action_log(self.name + " did " + name)
 		emit_signal("move_wait")
 
 func action() -> void:
 	await self.move_wait
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(1.0).timeout
 	emit_signal("move_done")
