@@ -56,8 +56,16 @@ func player_phase() -> void:
 			if action_info["Target"] == 1:
 				if find_child(player_target) != null:
 					var e_dmg : int = action_info["Damage"]
-					e_dmg += (3 if "Roll" in action_info and randf_range(0.0, 1.0) >= action_info["Roll"] else 0)
-					e_dmg *= (2 if "Crit" in action_info and randf_range(0.0, 1.0) <= action_info["Crit"] else 1)
+					if ("Roll" in action_info and randf_range(0.0, 1.0) >= action_info["Roll"]):
+						ui.change_action_log(player_name + " high rolled their move!")
+						e_dmg += 3
+						await get_tree().create_timer(1.0).timeout
+					
+					if "Crit" in action_info and randf_range(0.0, 1.0) <= action_info["Crit"]:
+						ui.change_action_log(player_name + " will have their move crit!")
+						e_dmg *= 2
+						await get_tree().create_timer(1.0).timeout
+
 					if find_child(player_target).is_defending:
 						find_child(player_target).deplete_health(e_dmg/2)
 					else:
