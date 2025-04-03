@@ -57,7 +57,8 @@ func player_phase() -> void:
 			var action_info = find_child(player_name).get_action_info(player_action)
 			if "Uses" in action_info and action_info["Uses"] <= 0:
 				ui.change_action_log("No uses left of " + player_action + "!")
-				pass
+				await get_tree().create_timer(1.0).timeout
+				continue
 			if action_info["Target"] == 1:
 				if find_child(player_target) != null:
 					var e_dmg : int = action_info["Damage"]
@@ -85,6 +86,8 @@ func player_phase() -> void:
 						ui.change_action_log(find_child(player_target).name + " died!")
 						find_child(player_target).queue_free()
 						await get_tree().create_timer(1.0).timeout
+				else:
+					find_child(player_name).is_skipped = false
 			else:
 				for enemy in get_tree().get_nodes_in_group("enemy"):
 					if enemy != null:
@@ -102,7 +105,9 @@ func player_phase() -> void:
 							ui.change_action_log(enemy.name + " died!")
 							enemy.queue_free()
 							await get_tree().create_timer(1.0).timeout
-			if action_info.has("Uses"):
+					else:
+						find_child(player_name).is_skipped = false
+			if "Uses" in action_info:
 				action_info["Uses"] -= 1
 				
 		else:
@@ -161,7 +166,8 @@ func enemy_phase() -> void:
 			var action_info = find_child(enemy_name).get_action_info(enemy_action)
 			if "Uses" in action_info and action_info["Uses"] <= 0:
 				ui.change_action_log("No uses left of " + enemy_action + "!")
-				pass
+				await get_tree().create_timer(1.0).timeout
+				continue
 			if action_info["Target"] == 1:
 				if find_child(enemy_target) != null:
 					if find_child(enemy_target).is_defending:
@@ -183,7 +189,7 @@ func enemy_phase() -> void:
 							ui.change_action_log(player.name + " died!")
 							player.queue_free()
 							await get_tree().create_timer(1.0).timeout
-			if action_info.has("Uses"):
+			if "Uses" in action_info:
 				action_info["Uses"] -= 1
 				
 		else:

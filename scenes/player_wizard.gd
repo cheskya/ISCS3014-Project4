@@ -21,7 +21,7 @@ var actions = {
 		"Lightning": {
 			"Damage": 8,
 			"Target": 1,
-			"Uses": 3,
+			"Uses": 2,
 			"Roll": 0.8,
 		},
 		"Acid": {
