@@ -28,10 +28,11 @@ theme_override_constants/margin_bottom = 10
 [node name="ActionList" type="ItemList" parent="ActionMenu/MarginContainer"]
 layout_mode = 2
 allow_search = false
-item_count = 3
+item_count = 4
 item_0/text = "Attack"
 item_1/text = "Skill"
 item_2/text = "Defend"
+item_3/text = "Skip"
 
 [node name="SkillsList" type="ItemList" parent="ActionMenu/MarginContainer"]
 visible = false

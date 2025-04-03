@@ -8,6 +8,7 @@ signal move_done
 signal move_wait
 
 var is_defending : bool = false
+var is_skipped : bool = false
 
 var actions = {
 	"Attack": {
@@ -18,13 +19,13 @@ var actions = {
 	},
 	"Skill": {
 		"Lightning": {
-			"Damage": 15, # 8 originally
+			"Damage": 8,
 			"Target": 1,
 			"Uses": 3,
 			"Roll": 0.8,
 		},
 		"Acid": {
-			"Damage": 7, # 2 originally
+			"Damage": 3,
 			"Target": 1,
 			"Uses": 3,
 		},

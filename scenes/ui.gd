@@ -44,6 +44,9 @@ func _on_action_list_item_clicked(index: int, at_position: Vector2, mouse_button
 	elif (index == 2) and game.accept_move:
 		action_list.deselect_all()
 		emit_signal("move_received", action_list.get_item_text(index), game.current_player, null)
+	elif (index == 3) and game.accept_move:
+		action_list.deselect_all()
+		emit_signal("move_received", null, game.current_player, null)
 
 
 func _on_attack_list_item_clicked(index: int, at_position: Vector2, mouse_button_index: int) -> void:

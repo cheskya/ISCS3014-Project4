@@ -8,11 +8,12 @@ signal move_done
 signal move_wait
 
 var is_defending : bool = false
+var is_skipped : bool = false
 
 var actions = {
 	"Attack": {
 		"Slash": {
-			"Damage": 20, # 3 Originally
+			"Damage": 3,
 			"Target": 1,
 		},
 		"Spin Attack": {

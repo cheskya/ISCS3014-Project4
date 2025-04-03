@@ -45,7 +45,12 @@ func player_phase() -> void:
 		var player_name = move[0]
 		var player_action = move[1]
 		var player_target = move[2]
-		if player_target != null:
+		
+		if player_action == null:
+			ui.change_action_log(player_name + " skipped!")
+			find_child(player_name).is_skipped = true
+			await get_tree().create_timer(1.0).timeout
+		elif player_target != null:
 			ui.change_action_log(player_name + " did " + player_action + " to " + player_target)
 			await get_tree().create_timer(1.0).timeout
 			# calculate damage here
@@ -56,6 +61,12 @@ func player_phase() -> void:
 			if action_info["Target"] == 1:
 				if find_child(player_target) != null:
 					var e_dmg : int = action_info["Damage"]
+					if (find_child(player_name).is_skipped):
+						ui.change_action_log(player_name + " has their damaged doubled because of skipping last turn!")
+						e_dmg *= 2
+						find_child(player_name).is_skipped = false
+						await get_tree().create_timer(1.0).timeout
+					
 					if ("Roll" in action_info and randf_range(0.0, 1.0) >= action_info["Roll"]):
 						ui.change_action_log(player_name + " high rolled their move!")
 						e_dmg += 3
@@ -77,10 +88,16 @@ func player_phase() -> void:
 			else:
 				for enemy in get_tree().get_nodes_in_group("enemy"):
 					if enemy != null:
+						var e_dmg : int = action_info["Damage"]
+						if (find_child(player_name).is_skipped):
+							ui.change_action_log(player_name + " has their damaged doubled because of skipping last turn!")
+							e_dmg *= 2
+							find_child(player_target).is_skipped = false
+							await get_tree().create_timer(1.0).timeout
 						if enemy.is_defending:
-							enemy.deplete_health(action_info["Damage"]/2)
+							enemy.deplete_health(e_dmg/2)
 						else:
-							enemy.deplete_health(action_info["Damage"])
+							enemy.deplete_health(e_dmg)
 						if enemy.health <= 0:
 							ui.change_action_log(enemy.name + " died!")
 							enemy.queue_free()
