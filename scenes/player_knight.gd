@@ -25,6 +25,7 @@ var actions = {
 			"Damage": 5,
 			"Target": 1,
 			"Uses": 2,
+			"Crit": 0.2,
 		},
 	}
 }

@@ -55,10 +55,11 @@ func player_phase() -> void:
 				pass
 			if action_info["Target"] == 1:
 				if find_child(player_target) != null:
+					var e_dmg = action_info["Damage"] * (2 if "Crit" in action_info and randf_range(0.0, 1.0) <= action_info["Crit"] else 1)
 					if find_child(player_target).is_defending:
-						find_child(player_target).deplete_health(action_info["Damage"]/2)
+						find_child(player_target).deplete_health(e_dmg/2)
 					else:
-						find_child(player_target).deplete_health(action_info["Damage"])
+						find_child(player_target).deplete_health(e_dmg)
 					if find_child(player_target).health <= 0:
 						ui.change_action_log(find_child(player_target).name + " died!")
 						find_child(player_target).queue_free()
