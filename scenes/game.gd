@@ -55,7 +55,9 @@ func player_phase() -> void:
 				pass
 			if action_info["Target"] == 1:
 				if find_child(player_target) != null:
-					var e_dmg = action_info["Damage"] * (2 if "Crit" in action_info and randf_range(0.0, 1.0) <= action_info["Crit"] else 1)
+					var e_dmg : int = action_info["Damage"]
+					e_dmg += (3 if "Roll" in action_info and randf_range(0.0, 1.0) >= action_info["Roll"] else 0)
+					e_dmg *= (2 if "Crit" in action_info and randf_range(0.0, 1.0) <= action_info["Crit"] else 1)
 					if find_child(player_target).is_defending:
 						find_child(player_target).deplete_health(e_dmg/2)
 					else:

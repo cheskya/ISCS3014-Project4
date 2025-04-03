@@ -18,9 +18,10 @@ var actions = {
 	},
 	"Skill": {
 		"Lightning": {
-			"Damage": 20, # 8 originally
+			"Damage": 15, # 8 originally
 			"Target": 1,
 			"Uses": 3,
+			"Roll": 0.8,
 		},
 		"Acid": {
 			"Damage": 7, # 2 originally
