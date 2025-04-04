@@ -119,6 +119,11 @@ func player_phase() -> void:
 		end_screen(true)
 		return
 	
+	if get_tree().get_node_count_in_group("player") == 0:
+		await get_tree().create_timer(1.0).timeout
+		end_screen(false)
+		return
+	
 	for enemy in get_tree().get_nodes_in_group("enemy"):
 		enemy.is_defending = false
 	
@@ -199,6 +204,11 @@ func enemy_phase() -> void:
 	if get_tree().get_node_count_in_group("player") == 0:
 		await get_tree().create_timer(1.0).timeout
 		end_screen(false)
+		return
+	
+	if get_tree().get_node_count_in_group("enemy") == 0:
+		await get_tree().create_timer(1.0).timeout
+		end_screen(true)
 		return
 	
 	for player in get_tree().get_nodes_in_group("player"):
