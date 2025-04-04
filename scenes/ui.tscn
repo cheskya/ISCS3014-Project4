@@ -1,0 +1,88 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbvlira0ldvkd"]
+
+[ext_resource type="Script" path="res://scenes/ui.gd" id="1_o0fgn"]
+
+[node name="UI" type="CanvasLayer"]
+script = ExtResource("1_o0fgn")
+
+[node name="ActionMenu" type="PanelContainer" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -233.0
+offset_top = -180.0
+offset_right = 233.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ActionList" type="ItemList" parent="ActionMenu/MarginContainer"]
+layout_mode = 2
+allow_search = false
+item_count = 4
+item_0/text = "Attack"
+item_1/text = "Skill"
+item_2/text = "Defend"
+item_3/text = "Skip"
+
+[node name="SkillsList" type="ItemList" parent="ActionMenu/MarginContainer"]
+visible = false
+layout_mode = 2
+allow_search = false
+item_count = 3
+item_0/text = "Back to Actions"
+item_1/text = "Lightning"
+item_2/text = "Acid"
+
+[node name="AttackList" type="ItemList" parent="ActionMenu/MarginContainer"]
+visible = false
+layout_mode = 2
+allow_search = false
+item_count = 2
+item_0/text = "Back to Actions"
+item_1/text = "Bonk"
+
+[node name="EnemyList" type="ItemList" parent="ActionMenu/MarginContainer"]
+visible = false
+layout_mode = 2
+allow_search = false
+item_count = 1
+item_0/text = "Back to"
+
+[node name="ActionLog" type="PanelContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -78.5
+offset_top = 39.0
+offset_right = 78.5
+offset_bottom = 113.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionLog"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="CenterContainer" type="CenterContainer" parent="ActionLog/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ActionLog/MarginContainer/CenterContainer"]
+layout_mode = 2
+text = "test"
+
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/ActionList" to="." method="_on_action_list_item_clicked"]
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/SkillsList" to="." method="_on_skills_list_item_clicked"]
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/AttackList" to="." method="_on_attack_list_item_clicked"]
+[connection signal="item_clicked" from="ActionMenu/MarginContainer/EnemyList" to="." method="_on_enemy_list_item_clicked"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cx3u7wgxsnwtf"]
+[gd_scene load_steps=27 format=3 uid="uid://b08mdlt6wkq1c"]
 
 [ext_resource type="Texture2D" uid="uid://iqby4v82r4e0" path="res://assets/Mushroom/Idle.png" id="1_gf1vr"]
 [ext_resource type="Texture2D" uid="uid://bbp8nwc2u5se3" path="res://assets/Mushroom/Attack.png" id="1_oneme"]
@@ -171,7 +171,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_jynu7"]
 radius = 10.0499
 
-[node name="Enemy2" type="CharacterBody2D"]
+[node name="Mushroom" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -26)
@@ -184,3 +184,13 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -11)
 shape = SubResource("CircleShape2D_jynu7")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -6.0
+offset_top = -55.0
+offset_right = 18.0
+offset_bottom = -32.0
+scale = Vector2(0.5, 0.5)
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

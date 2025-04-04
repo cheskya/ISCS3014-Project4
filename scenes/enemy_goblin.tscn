@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cj2utgfg8w3xf"]
+[gd_scene load_steps=27 format=3 uid="uid://cykijir31vleq"]
 
 [ext_resource type="Texture2D" uid="uid://rkqvx0ur55wa" path="res://assets/Goblin/Attack.png" id="1_ax133"]
 [ext_resource type="Texture2D" uid="uid://b25dqi75l4iqq" path="res://assets/Goblin/Idle.png" id="1_ay8w7"]
@@ -171,7 +171,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_pap2g"]
 radius = 12.0416
 
-[node name="Enemy1" type="CharacterBody2D"]
+[node name="Goblin" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-1, -26)
@@ -184,3 +184,13 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13)
 shape = SubResource("CircleShape2D_pap2g")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -6.0
+offset_top = -52.0
+offset_right = 18.0
+offset_bottom = -29.0
+scale = Vector2(0.5, 0.5)
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://46rsn01v0yrh"]
+[gd_scene load_steps=32 format=3 uid="uid://d151u00evjn7a"]
 
 [ext_resource type="Texture2D" uid="uid://ob2dwbc5p8nt" path="res://assets/Evil Wizard/Attack.png" id="1_plsi4"]
 [ext_resource type="Texture2D" uid="uid://c77nitnsttpkw" path="res://assets/Evil Wizard/Idle.png" id="1_u8t3d"]
@@ -205,7 +205,7 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ouoqt"]
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Wizard" type="CharacterBody2D"]
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -26)
@@ -217,3 +217,13 @@ frame_progress = 0.32755
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -23)
 shape = SubResource("CircleShape2D_ouoqt")
+
+[node name="HealthLabel" type="Label" parent="."]
+offset_left = -6.0
+offset_top = -66.0
+offset_right = 18.0
+offset_bottom = -43.0
+scale = Vector2(0.5, 0.5)
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
